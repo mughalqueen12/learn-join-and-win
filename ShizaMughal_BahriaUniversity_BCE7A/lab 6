@@ -1,0 +1,44 @@
+# A simple Python3 program to find maximum score that maximizing player can get
+import math
+
+def minimax (curDepth, nodeIndex,
+            maxTurn, scores,
+            targetDepth):
+
+    # base case : targetDepth reached
+    if (curDepth == targetDepth):
+        return scores[nodeIndex]
+
+    if (maxTurn):
+        return max(minimax(curDepth + 1, nodeIndex * 2,
+                           False, scores, targetDepth),
+                minimax(curDepth + 1, nodeIndex * 2 + 1,
+                        False, scores, targetDepth))
+
+    else:
+        return min(minimax(curDepth + 1, nodeIndex * 2,
+                           True, scores, targetDepth),
+                   minimax(curDepth + 1, nodeIndex * 2 + 1,
+                           True, scores, targetDepth))
+    
+# Driver code
+scores = [6,7,2,2,4,8,4,8,3,6,9,1,8,8,5,1]
+treeDepth = math.log(len(scores), 2)
+print("The optimal value is : ", end = "")
+print(minimax(0, 0, True, scores, treeDepth))
+
+import math
+src = []
+x = int(input("ENTER LENGTH OF LEAf NODES: "))
+
+for i in range(x):
+    leaf_value = int(input(F"ENTER VALUE {i} FOR LEAF VALUE:  "))
+    src.append(leaf_value)
+    
+td = math.log(len(src), 2)
+
+cd = int(input("Enter Current Depth "))
+nodeV = int(input("enter node starting value"))
+maxT = True
+print("the optimal value is : ", end = " ")
+print(minimax(cd,nodeV,maxT,src,td))
